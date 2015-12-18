@@ -1,0 +1,19 @@
+{
+  "name": "learn-tdd-bdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/ --compilers js:babel-core/register --recursive",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "istanbul cover -x *Spec.js _mocha -- ./test/server --compilers js:babel-core/register --recursive"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.3.13",
+    "babel-core": "^6.3.21",
+    "istanbul": "^0.4.1",
+    "mocha": "^2.3.4"
+  }
+}
