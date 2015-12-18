@@ -23,11 +23,11 @@ mocha test --compilers js:babel-core/register --recursive
 npm run test -- --watch
 ```
 
-- install istanbul
+- install isparta
 - create a test coverage task:
 
 ```
-istanbul cover -x *Spec.js _mocha -- ./test/ --compilers js:babel-core/register --recursive
+babel-node node_modules/.bin/isparta cover _mocha
 ```
 
 ## Start doing example without TDD
