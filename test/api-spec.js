@@ -1,10 +1,9 @@
-
 import {expect} from 'chai';
 import nock from 'nock';
 import PokemonApiClient from '../src/api';
 import apiResponse from './fixtures/apiResponse';
 
-describe('Pokémon Api Client', () => {
+describe('PokémonApiClient', () => {
   let client;
 
   beforeEach(() => {
@@ -15,27 +14,29 @@ describe('Pokémon Api Client', () => {
     client = null;
   });
 
-  it('should return a list of every Pokémon that exists', (done) => {
-    const server = nock(PokemonApiClient.BASE_URL)
-                  .get('/pokedex/1')
-                  .reply(200, JSON.stringify(apiResponse));
+  describe('#all', () => {
+    it('should return a list of every Pokémon that exists', (done) => {
+      const server = nock(PokemonApiClient.BASE_URL)
+                    .get('/pokedex/1')
+                    .reply(200, JSON.stringify(apiResponse));
 
-    client.all().then((pokedex) => {
-      expect(pokedex.pokemon).to.be.an.instanceof(Array);
-      done();
+      client.all().then((pokedex) => {
+        expect(pokedex.pokemon).to.be.an.instanceof(Array);
+        done();
+      });
+      server.done();
     });
-    server.done();
-  });
 
-  it('notify properly server errors', (done) => {
-    const query = 'bar';
-    const server = nock(PokemonApiClient.BASE_URL)
-                  .get('/pokedex/1')
-                  .reply(404);
+    it('notify properly server errors', (done) => {
+      const query = 'bar';
+      const server = nock(PokemonApiClient.BASE_URL)
+                    .get('/pokedex/1')
+                    .reply(404);
 
-    client.all().catch((err) => {
-      expect(err).to.not.be.undefined;
-      done();
+      client.all().catch((err) => {
+        expect(err).to.not.be.undefined;
+        done();
+      });
     });
   });
 });
